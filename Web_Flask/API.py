@@ -7,6 +7,10 @@ from flask_ngrok import run_with_ngrok
 app = Flask(__name__)
 run_with_ngrok(app)
 
+@app.route('/')
+def index():
+    return "Hello world !"
+
 @app.route('/api/v1/recognition/', methods=['POST'])
 def recognition():
     # On recupere le corps (payload) de la requete qui doit être une image
