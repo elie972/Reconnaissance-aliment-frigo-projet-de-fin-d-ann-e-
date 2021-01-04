@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
 from flask import Flask, jsonify, request
+from flask_ngrok import run_with_ngrok
 
 
 app = Flask(__name__)
+run_with_ngrok(app)
 
 @app.route('/api/v1/recognition/', methods=['POST'])
 def recognition():
@@ -18,4 +20,4 @@ def recognition():
     
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run()
