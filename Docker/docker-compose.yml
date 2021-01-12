@@ -10,7 +10,7 @@ services:
     networks:
       - monreseau
     environment:
-      - NOM=les amis
+      - NOM=Lucas
   redis:
     image: redis
     networks:
