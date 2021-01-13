@@ -97,7 +97,7 @@ export default function App() {
     });
     console.log('Sending...')
 
-    fetch("http://9175b78a3cbe.ngrok.io/recognition", {
+    fetch("http://a23435ec14a3.ngrok.io/recognition", {
       method: "POST",
       body: data,
       headers: {
@@ -134,7 +134,7 @@ export default function App() {
       </Modal>
       <View style={{ flex: 2, width: '100%', alignItems: 'center', justifyContent: 'center', paddingBottom: 20 }}>{CameraComp}</View>
 
-      {(!photo || loading) ? loading ? <Loading /> : <View style={{ flex: 1 }}></View> :
+      {(!photo || loading) ? loading ? <Loading /> : <View style={{ flex: 1, width: '100%' }}><Image style={{ height: '100%', width: '100%' }} resizeMode='contain' source={require('./Image/Selfie.png')} /></View> :
         <View style={{ flex: 1, width: '80%', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
           <View style={{ backgroundColor: 'white', width: '45%', height: '100%', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', borderRadius: 20, borderWidth: 1 }}>{resultView}</View>
 
