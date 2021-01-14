@@ -97,7 +97,7 @@ export default function App() {
     });
     console.log('Sending...')
 
-    fetch("http://a23435ec14a3.ngrok.io/recognition", {
+    fetch("http://6f9659bc39a3.ngrok.io/recognition", {
       method: "POST",
       body: data,
       headers: {
