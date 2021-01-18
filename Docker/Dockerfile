@@ -1,9 +1,9 @@
-FROM python:2.7-slim
+FROM python:3-slim
 WORKDIR /app
 COPY . /app
-COPY . /darknet
+RUN pip install opencv-python
+RUN apt-get update ##[edited]
+RUN apt-get install ffmpeg libsm6 libxext6  -y
 RUN pip install -r requirements.txt
 EXPOSE 80
-ENV NOM Lucas et Ellie les BG incontestes
-CMD ["python", "app.py"]
-CMD ["-it", "bash"]
+CMD ["python", "app_web.py"]
