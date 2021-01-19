@@ -1,0 +1,84 @@
+topic: ~Hello()
+language: frf
+
+# Définition des concepts utilisés, mots clés et phrases qui correspondent aux concepts
+concept:(oui) [oui ouais ok "pourquoi pas" "d'accord" certainement "très bien" yes définitivement "bah oui" "tout à fait"]
+concept:(non) [non nope "je ne veux pas" "je ne suis pas d'accord" "non merci" jamais "pas du tout"]
+concept:(content) ["Ca va" "Je vais bien" "Ca va super" "en pleine forme" "Pas mal"]
+concept:(triste) [mal "Je suis triste" non bof "Je vais mal"]
+concept:(repete) [répètes "Peux-tu répéter ?" "Je n'ai pas compris" "Je comprend pas" "t'as dit quoi ?" "Quoi ?"]
+concept:(merci) ["thank you" merci thanks gracias "merci beaucoup"]
+concept:(bonjour) [bonjour hello coucou salut "salut mon ami" "salut salut"]
+concept:(aurevoir) ["au revoir" "à bientôt" "à plus" salut "bye bye" "adios amigos"]
+concept:(nom) ["Je m'appelle Pepper" Pepper "Je suis Pepper et je suis un super robot"]
+concept:(questionNom) ["Qui es-tu ?" "Comment t'appelles-tu ?" "Quel est ton nom ?" "C'est quoi ton nom ?" "Tu t'appelles comment ?" "PTDR t'es qui ?"]
+concept:(questionCaVa) ["Comment vas-tu ?" "Ca va ?" "Comment tu vas ?" "Tu vas bien ?"]
+concept:(frigo) ["Il y a quoi dans le frigo" frigo "Dans le frigo" "Qu'y a t il dans le frigo" "Aliments dans le frigo"]
+concept:(aliments) [Tomates Lait "Les tomates s'il te plait" "Le lait s'il te plait" "Tomates et lait"]
+concept:(abandon) [arrêtes stop annules "arrêtes toi" "stop Pepper" "oublies ce que je viens de dire"]
+concept:(blague) ["raconte moi une blague" "raconte une blague" blague "dis une blague"]
+
+# Touche accueil sur la tablette
+u:([Accueil e:MonCode/ButtonAccueil]) $MonCode/Page0=1 
+
+# Touche emploi du temps sur la tablette
+#u:([~edt e:MonCode/Start2]) $MonCode/Page0=1  En quelle année es-tu jeune ingénieur ? 3, 4, ou 5? $MonCode/Page1=1
+
+# Touche frigo sur la tablette
+u:([~edt e:MonCode/Start2]) $MonCode/Page0=1  Quelle aliment veux tu que je regardes dans le frigo? le lait, ou les tomates $MonCode/Page1=1
+
+    u1:([3 e:MonCode/Button3]) $MonCode/Page2=1 3? Ok, quelle est ta filière ?
+    u2:([ETI e:MonCode/ButtonETI]) ETI ? T'es le meilleur $MonCode/Page3=1
+    u2:([CGP e:MonCode/ButtonCGP]) CGP ? Beurk, ok $MonCode/Page4=1 
+
+    u1:([4 e:MonCode/Button4]) $MonCode/Page2=1 4? Ok, quelle est ta filière ?
+    u2:([ETI e:MonCode/ButtonETI]) ETI ? T'es le meilleur $MonCode/Page5=1
+    u2:([CGP e:MonCode/ButtonCGP]) CGP ? Beurk, ok $MonCode/Page6=1 
+
+    u1:([5 e:MonCode/Button5]) $MonCode/Page2=1 5? Ok, quelle est ta filière ?
+    u2:([ETI e:MonCode/ButtonETI]) ETI ? T'es le meilleur $MonCode/Page7=1
+    u2:([CGP e:MonCode/ButtonCGP]) CGP ? Beurk, ok $MonCode/Page8=1
+
+
+# Lorsqu'on dit bonjour, le robot répond en levant les bras
+u:(~bonjour) ^start(animations/Stand/Gestures/Hey_2) ~bonjour ^wait(animations/Stand/Gestures/Hey_2) ^gotoReactivate(commentCaVa)
+
+# Le robot demande à l'utilisateur comment il va, et répond en fonction de 3 types de réponses
+proposal: %commentCaVa ^startTag(show) Comment tu vas ?
+    u1:(~content) Je suis content alors ! ^nextProposal
+    u1:(~triste) Oh, désolé. ^nextProposal
+    u1:(~repete) J'ai dis: ^sameProposal
+    u1:(Ca va et toi ?) Moi je vais bien. ^nextProposal
+
+# Si on demande au robot comment il va, il répond positivement et va au label CommentCava
+u:(~questionCaVa) ^startTag(myself) ~content Et toi, ^gotoReactivate(commentCaVa)
+
+# Lorsqu'on demande comment il s'appelle
+u:(~questionNom) ~nom 
+
+# Le robot dit ce qu'il sait faire
+u:(Qu'est-ce que tu sais faire ?) Je peux te dire ce qu'il te reste dans ton frigo. Je peux également raconter une blague.
+
+
+# Lorsqu'on lui demande de répéter
+u:(~repete) J'ai dis : ^sameProposal
+
+# Réponse négative
+u:(~non) Oooh dommage... ^run(Stand/Emotions/Disappointed_1)
+
+# Réponse positive
+u:(~oui) Super ! ^run(Stand/Gestures/Yes_1)
+
+# Le robot répond de rien à merci
+u:(~merci) De rien
+
+# Le robot répond au revoir
+u:(~aurevoir) ~aurevoir
+
+# Blague
+u:(~blague) Un mec rentre dans un bar, et dit au barman :
+– Je voudrais une chwourkanistroufblisk à la menthe.
+Et le barman :
+– Un chwourkanistroufblisk à la quoi ?
+
+#u:(~frigo) Il y a $Weather/Temperature degrés, il me semble 
