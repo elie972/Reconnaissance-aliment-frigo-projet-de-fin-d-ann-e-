@@ -1,0 +1,8 @@
+data/obj/Tomato/vegetables-1085063_640.jpg
+data/obj/Tomato/tomatotest1.jpg
+data/obj/Tomato/tomatotest3.jpg
+data/obj/Tomato/tomatotest4.jpg
+data/obj/Poire/8.png
+data/obj/Poire/9.jpg
+data/obj/Yahourt/8.jpg
+data/obj/Yahourt/9.jpg
