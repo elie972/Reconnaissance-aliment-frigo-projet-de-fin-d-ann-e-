@@ -56,6 +56,8 @@ sequenceDiagram
     - Commande afin de tester la bonne installation de Docker : "docker run hello-world"  
 
 2. Installation de Node Js  
+    - Linux : "sudo apt install nodejs-legacy"
+    - Windows : https://nodejs.org/fr/download/
   
 3. Installer l'application smartphone "Expo" depuis l'App Store ou Google Play Store  
   
@@ -83,7 +85,9 @@ sequenceDiagram
         "https://xxxxxxxxxxxxxxx.ngrok.io/recognition"  
   
 4. Dans un dernier terminal, se placer dans le dossier "ProjetApp" du repo git :
-    - Entrer la commande : "npm start"  
+    - Entrer la commande : "npm install expo-cli"
+    - Puis la commande :"npm install"
+    - Enfin la commande : "npm start"  
   
 5. Maintenant un QR-code doit apparaitre sur votre écran, scannez le : 
     ( /!\ Attention votre ordinateur et votre smartphone doivent être connectés sur le même réseau local /!\ )  
