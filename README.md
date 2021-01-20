@@ -72,9 +72,9 @@ sequenceDiagram
 1. "git pull" du repo (potentielles mises jour)  
   
 2. Dans un terminal, se placer dans le dossier "Docker" du repo git :
-    - Entrer la commande "(sudo) docker build -t MonServeurDocker ." permettant le build de notre container Docker  
+    - Entrer la commande "(sudo) docker build -t monserveurdocker ." permettant le build de notre container Docker  
     ( /!\ Attention le container fait 1Go et le build est assez long /!\ )  
-    - Une fois le build terminé, entrer la commande "(sudo) docker run -p 80: 80 MonServeurDocker"  
+    - Une fois le build terminé, entrer la commande "(sudo) docker run -p 80: 80 monserveurdocker"  
     Voilà le serveur est en fonctionnement :)   
     Pour vérifier son bon fonctionnement vous pouvez ouvrir la page "localhost" de votre navigateur, et le message "Hello world !" doit apparaitre.  
   
