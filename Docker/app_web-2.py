@@ -429,7 +429,7 @@ def performDetect(imagePath="./askedRecognition.jpg", thresh= 0.25, configPath =
             print("Unable to show image: "+str(e))
     return detections
 
-
+import Flask
 app = Flask(__name__)
 
 @app.route('/',methods = ['GET'])
