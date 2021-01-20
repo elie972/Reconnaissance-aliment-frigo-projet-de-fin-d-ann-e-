@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<package uuid="01_script_hello" version="0.1.0">
+ <descriptionLanguages>
+  <language>en_US</language>
+ </descriptionLanguages>
+ <contents/>
+ <services>
+  <service name="01_script_hello" autorun="true" execStart="./python bin/01_script_hello.py"/>
+  <service name="01_script_hello" autorun="true" execStart="bin/01_script_hello"/>
+ </services>
+</package>

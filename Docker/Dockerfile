@@ -1,9 +1,11 @@
-FROM python:2.7-slim
+FROM python:3.7-slim
 WORKDIR /app
 COPY . /app
-COPY . /darknet
-RUN pip install -r requirements.txt
+RUN pip3 install pip --upgrade
+RUN pip3 install opencv-python
+RUN apt-get update
+RUN apt-get install libopencv-highgui-dev -y
+RUN apt-get install ffmpeg libsm6 libxext6 -y
+RUN pip3 install -r requirements.txt 
 EXPOSE 80
-ENV NOM Lucas et Ellie les BG incontestes
-CMD ["python", "app.py"]
-CMD ["-it", "bash"]
+CMD ["python", "app_web.py"]

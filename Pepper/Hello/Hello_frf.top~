@@ -1,0 +1,105 @@
+topic: ~Hello()
+language: frf
+
+# Définition des concepts utilisés, mots clés et phrases qui correspondent aux concepts
+concept:(oui) [oui ouais ok "pourquoi pas" "d'accord" certainement "très bien" yes définitivement "bah oui" "tout à fait"]
+concept:(non) [non nope "je ne veux pas" "je ne suis pas d'accord" "non merci" jamais "pas du tout"]
+concept:(content) ["Ca va" "Je vais bien" "Ca va super" "en pleine forme" "Pas mal"]
+concept:(triste) [mal "Je suis triste" non bof "Je vais mal"]
+concept:(repete) [répète "Peux-tu répéter ?" "Je n'ai pas compris" "Je comprend pas" "t'as dit quoi ?" "Quoi ?"]
+concept:(merci) ["thank you" merci thanks gracias "merci beaucoup"]
+concept:(bonjour) [bonjour hello coucou salut "salut mon ami" "salut salut" "bonjour, jeune ingénieur"]
+concept:(aurevoir) ["au revoir" "à bientôt" "à plus" salut "bye bye" "adios amigos"]
+concept:(nom) ["Je m'appelle Pepper" Pepper "Je suis Pepper et je suis un super robot"]
+concept:(questionNom) ["Qui es-tu ?" "Comment t'appelles-tu ?" "Quel est ton nom ?" "C'est quoi ton nom ?" "Tu t'appelles comment ?" "Tu es qui ?"]
+concept:(questionCaVa) ["Comment vas-tu ?" "Ca va ?" "Comment tu vas ?" "Tu vas bien ?"]
+concept:(edt) ["Emploi du temps" "Donne moi l'emploi du temps" "Donne mon emploi du temps" "Planning" "Donne mon planning" "Quel est mon planning"]
+concept:(presentationCPE) ["Présente CPE" "présente-moi CPE" "Qu'est ce que CPE ?" CPE]
+concept:(filieresCPE) ["Quelles sont les filières ?" filières "Quelles sont les formations ?" "quels sont les parcours ?"] 
+concept:(assoCPE) ["quelles sont les associations" associations "Y-a-t'il des associations ?" clubs "Quels sont les clubs ?"]
+concept:(eveCPE) ["quels sont les événements ?" événements "Y-a-t'il des événements ?" "quelles sont les sorties ?" "Y-a-t'il des soirées ?" "soirées étudiantes"]
+concept:(stageCPE) ["quels sont les stages" stages "Y-a-t'il des stages ?"]
+concept:(plan) ["donne moi le plan de l'école" plan "quel est le plan"]
+concept:(blague) ["raconte moi une blague" "raconte une blague" blague "dis une blague"]
+
+
+# Touche accueil sur la tablette
+u:([Accueil e:MonCode/ButtonAccueil]) $MonCode/Page0=1 
+
+# Touche plan sur la tablette
+u:([~plan e:MonCode/Start1]) $MonCode/Page0=1  Voici le plan de l'école. $MonCode/Page9=1
+
+# Touche emploi du temps sur la tablette
+u:([~edt e:MonCode/Start2]) $MonCode/Page0=1  En quelle année es-tu jeune ingénieur ? 3, 4, ou 5? $MonCode/Page1=1
+
+    u1:([3 e:MonCode/Button3]) $MonCode/Page2=1 3? Ok, quelle est ta filière ?
+	u2:([ETI e:MonCode/ButtonETI]) ETI ? T'es le meilleur $MonCode/Page3=1
+	u2:([CGP e:MonCode/ButtonCGP]) CGP ? Beurk, ok $MonCode/Page4=1 
+
+    u1:([4 e:MonCode/Button4]) $MonCode/Page2=1 4? Ok, quelle est ta filière ?
+	u2:([ETI e:MonCode/ButtonETI]) ETI ? T'es le meilleur $MonCode/Page5=1
+	u2:([CGP e:MonCode/ButtonCGP]) CGP ? Beurk, ok $MonCode/Page6=1 
+
+    u1:([5 e:MonCode/Button5]) $MonCode/Page2=1 5? Ok, quelle est ta filière ?
+	u2:([ETI e:MonCode/ButtonETI]) ETI ? T'es le meilleur $MonCode/Page7=1
+	u2:([CGP e:MonCode/ButtonCGP]) CGP ? Beurk, ok $MonCode/Page8=1
+
+
+# Lorsqu'on dit bonjour, le robot répond en levant les bras
+u:(~bonjour) ^start(animations/Stand/Gestures/Hey_2) ~bonjour ^wait(animations/Stand/Gestures/Hey_2) ^gotoReactivate(commentCaVa)
+
+# Le robot demande à l'utilisateur comment il va, et répond en fonction de 3 types de réponses
+proposal: %commentCaVa ^startTag(show) Comment tu vas ?
+    u1:(~content) Je suis content alors ! ^nextProposal
+    u1:(~triste) Oh, désolé. ^nextProposal
+    u1:(~repete) J'ai dis: ^sameProposal
+    u1:(Ca va et toi ?) Moi je vais bien. ^nextProposal
+
+# Si on demande au robot comment il va, il répond positivement et va au label CommentCava
+u:(~questionCaVa) ^startTag(myself) ~content Et toi, ^gotoReactivate(commentCaVa)
+
+# Lorsqu'on demande comment il s'appelle
+u:(~questionNom) ~nom 
+
+# Le robot dit ce qu'il sait faire
+u:(Qu'est-ce que tu sais faire ?) Pleins de choses. Je peux te donner ton emploi du temps, le plan de l'école, mais je peux aussi te renseigner sur l'école CPE Lyon : filières, associations, événements, stages. Je peux également raconter une blague.
+
+# Si on touche le front du robot
+u:(e:FrontTactilTouched) Arrête de me toucher ^run(Stand/Emotions/Angry_1)
+
+# Lorsqu'on lui demande de répéter
+u:(~repete) J'ai dis : ^sameProposal
+
+# Réponse négative
+u:(~non) Oooh dommage... ^run(Stand/Emotions/Disappointed_1)
+
+# Réponse positive
+u:(~oui) Super ! ^run(Stand/Gestures/Yes_1)
+
+# Le robot répond de rien à merci
+u:(~merci) De rien
+
+# Le robot répond au revoir
+u:(~aurevoir) ~aurevoir
+
+# Présentation CPE rapide
+u:(~presentationCPE) Située sur le campus universitaire LyonTech – La Doua, CPE Lyon forme des ingénieurs en chimie-génie des procédés et sciences du numérique depuis plus de 20 ans. Nous sommes l'école à 3 étoiles car nous avons 3 Prix Nobel.
+
+# Filières
+u:(~filieresCPE) Les différentes filières à CPE Lyon sont : Sciences du Numérique, Chimie Génie des Procédés, Informatique et Réseaux de Communication.
+
+# Associations
+u:(~assoCPE) De nombreux étudiants s’engagent et font vivre les associations. Sport, culture, loisirs et détente, actions humanitaires, initiation professionnelle, chaque étudiant peut trouver les activités extra-scolaires qui lui conviennent. Il y a plus de 30 associations à CPE !
+
+# Evénements
+u:(~eveCPE) L’année est rythmée par des périodes ou événements emblématiques, animés et organisés par les différentes associations : week-end d'intégration, gala, semaine de ski, campagne BDE, ... Bref on ne s'ennuie pas à CPE !
+
+# Stages
+u:(~stageCPE) Il y a 3 stages obligatoires durant le cursus : le stage d'exécution d'un mois, le stage ingénieur de 3 mois et le stage de fin d'année de 6 mois. Les étudiants ont également la possibilité d'effectuer une césure d'un an entre l'année 4 et 5.
+
+# Blague
+u:(~blague) Un mec rentre dans un bar, et dit au barman :
+– Je voudrais une chwourkanistroufblisk à la menthe.
+Et le barman :
+– Un chwourkanistroufblisk à la quoi ?
+
