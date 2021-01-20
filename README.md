@@ -18,7 +18,7 @@ Service permettant renseigner la composition de son frigo (Lait, Beurre, ...)
     2. Dockerfile pour lancer le serveur sur n'importe quelle machine
     3. Différents Endpoints (différentes méthodes d'appel API : méthode GET, POST, etc)  
   
-3. [x] Développement d'une partie client permettant l'accès au serive de reconnaissance d'objet Darkent
+3. [x] Développement d'une partie client permettant l'accès au service de reconnaissance d'objet Darkent
     1. Version IPYNB pour déployer le client sur Google Colab
     2. Application smartphone React-Native avec Expo (en Javascript)
     3. Appels d'API python pour accéder aux endpoints du service
