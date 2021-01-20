@@ -30,10 +30,7 @@ export default function App() {
     return <Text>No access to camera</Text>;
   }
 
-  let CameraComp = <Camera style={styles.cameraView} type={Camera.Constants.Type.back} ref={camera}>
-    <View style={styles.cameraView}>
-    </View>
-  </Camera>
+
 
   let resultView = <View></View>
 
@@ -50,6 +47,10 @@ export default function App() {
     }
   }
 
+  let CameraComp = <Camera style={styles.cameraView} type={Camera.Constants.Type.back} ref={camera}>
+    <View style={styles.cameraView}>
+    </View>
+  </Camera>
   let sendButton = <View style={styles.buttonView}>
     <TouchableOpacity onPress={() => Photo()}>
       <Text style={styles.buttonText}>Prendre une photo</Text>
@@ -97,7 +98,7 @@ export default function App() {
     });
     console.log('Sending...')
 
-    fetch("http://6f9659bc39a3.ngrok.io/recognition", {
+    fetch("http://2390991b17a3.ngrok.io/recognition", {
       method: "POST",
       body: data,
       headers: {
