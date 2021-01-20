@@ -36,7 +36,7 @@ sequenceDiagram
     participant Client
     participant Serveur
     Client->Serveur: Envoi de la photo du frigo
-    loop Healthcheck
+    loop
         Serveur->Serveur: Lancement du code de reconnaissance
     end
     Serveur->Client: Fichier JSON décrivant le contenu du frigo
