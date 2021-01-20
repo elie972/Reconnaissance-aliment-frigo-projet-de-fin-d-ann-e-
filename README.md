@@ -10,15 +10,15 @@ Service permettant renseigner la composition de son frigo (Lait, Beurre, ...)
 # Listes des fonctionnalités :
 
 1. [x] Entrainement de réseau de neurone (via les technologies Yolo/Darknet)
-    1. Apprentissage de notre propre dataset
-    2. Amélioration du dataset Coco déjà existant  
+    1. Création et labélisation de notre propre dataset d'images
+    2. Entrainement du réseau de neuronne à partir d'un fichier poids Yolov3 tiny déjà existant  
   
 2. [x] Développement d'un serveur web Flask permettant de bénéficier du service reconnaissance d'objet Darknet
     1. Version IPYNB pour déployer le serveur sur Google Colab
     2. Dockerfile pour lancer le serveur sur n'importe quelle machine
     3. Différents Endpoints (différentes méthodes d'appel API : méthode GET, POST, etc)  
   
-3. [x] Développement d'une partie client permettant l'accès au serive de reconnaissance d'objet Darkent
+3. [x] Développement d'une partie client permettant l'accès au service de reconnaissance d'objets Darknet
     1. Version IPYNB pour déployer le client sur Google Colab
     2. Application smartphone React-Native avec Expo (en Javascript)
     3. Appels d'API python pour accéder aux endpoints du service
